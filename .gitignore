@@ -1,0 +1,6 @@
+backend/bin
+backend/pkg
+backend/src/github.com
+backend/src/go.etcd.io
+backend/src/golang.org
+backend/src/gopkg.in

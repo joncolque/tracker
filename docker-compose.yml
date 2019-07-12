@@ -1,0 +1,32 @@
+version: '3'
+services:
+  flowtrace-backend:
+    image: flowtrace-backend
+    container_name: flowtrace-backend
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - ENVIRONMENT=DEV
+    volumes:
+      - ./backend:/flowtrace/backend
+    command: ["/bin/bash", "/flowtrace/backend/startbackend.sh"]
+    networks:
+      - flowtrace-net
+    links:
+      - flowtrace-mongo:db
+    depends_on:
+      - flowtrace-mongo
+  
+  flowtrace-mongo:
+    image: mongo
+    container_name: flowtrace-mongo
+    ports:
+      - 21018:27017
+    networks:
+      - flowtrace-net
+
+networks:
+  flowtrace-net:
+    driver: bridge
+
