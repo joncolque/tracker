@@ -7,9 +7,9 @@ import (
 	"service"
 )
 
-func NewSeguimiento(c *gin.Context) {
-	var seguimiento dto.SeguimientoDTO
-	err := c.BindJSON(&seguimiento)
+func NewTracked(c *gin.Context) {
+	var tracked dto.TrackedDTO
+	err := c.BindJSON(&tracked)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -17,21 +17,21 @@ func NewSeguimiento(c *gin.Context) {
 		})
 		return
 	}
-	err = service.CreateSeguimiento(&seguimiento)
+	err = service.CreateTracked(&tracked)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "error2",//strErr(err),
 		})
 		return
 	}
-	seguimientoDTO, _ := service.FindSeguimientoByName(seguimiento.Name)
+	trackedDTO, _ := service.FindTrackedById(tracked.Id_tracked)
 	c.JSON(http.StatusCreated, gin.H{
-		"data": seguimientoDTO,
+		"data": trackedDTO,
 	})
 }
 
-func GetAllSeguimientos(c *gin.Context) {
-	seguimientos, err := service.GetAllSeguimientos()
+func GetAllTracked(c *gin.Context) {
+	trackeds, err := service.GetAllTracked()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "error3",//strErr(err),
@@ -39,6 +39,6 @@ func GetAllSeguimientos(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{
-		"data": seguimientos,
+		"data": trackeds,
 	})
 }

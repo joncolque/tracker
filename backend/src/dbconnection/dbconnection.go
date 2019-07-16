@@ -33,7 +33,7 @@ func InitMongoDB() {
 }
 
 func iniciarColecciones() {
-	dao.InitSeguimientoDAO(database)
+	dao.InitTrackedDAO(database)
 }
 
 func CloseMongoDB() {
