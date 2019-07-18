@@ -30,6 +30,7 @@ func initAPI() {
 	}))
 
 	router.InitTrackedRoutes(app.Group("/tracked"))
+	router.InitTracingRoutes(app.Group("/tracing"))
 
 	app.Run(":8080")
 }
