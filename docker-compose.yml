@@ -3,6 +3,7 @@ services:
   flowtrace-backend:
     image: flowtrace-backend
     container_name: flowtrace-backend
+    tty: true
     build: .
     ports:
       - "8080:8080"
@@ -10,7 +11,7 @@ services:
       - ENVIRONMENT=DEV
     volumes:
       - ./backend:/flowtrace/backend
-    command: ["/bin/bash", "/flowtrace/backend/startbackend.sh"]
+    command: bash
     networks:
       - flowtrace-net
     links:

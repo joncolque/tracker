@@ -5,7 +5,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"service"
-	// "fmt"
 )
 
 func NewTracing(c *gin.Context) {
