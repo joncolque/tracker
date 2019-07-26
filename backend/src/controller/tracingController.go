@@ -1,23 +1,23 @@
 package controller
 
 import (
-	"dto"
+	// "dto"
 	"github.com/gin-gonic/gin"
-	"net/http"
-	"service"
+	// "net/http"
+	// "service"
 )
 
 func NewTracing(c *gin.Context) {
-	var tracingDevice dto.TrackedDTO
-	err := c.BindJSON(&tracingDevice)
+	// var tracingDevice dto.TrackedDTO
+	// err := c.BindJSON(&tracingDevice)
 
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "error1",//strErr(err),
-		})
-		return
-	}
+	// if err != nil {
+	// 	c.JSON(http.StatusBadRequest, gin.H{
+	// 		"error": "error1",//strErr(err),
+	// 	})
+	// 	return
+	// }
 
-	service.InitTracing(tracingDevice.Id_tracked)
+	// service.InitTracing(tracingDevice.Id_tracked)
 
 }

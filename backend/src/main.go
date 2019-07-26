@@ -29,7 +29,7 @@ func initAPI() {
 		ValidateHeaders: false,
 	}))
 
-	router.InitTrackedRoutes(app.Group("/tracked"))
+	router.InitDeviceRoutes(app.Group("/device"))
 	router.InitTracingRoutes(app.Group("/tracing"))
 
 	app.Run(":8080")
