@@ -36,7 +36,7 @@ func UpdateDevice(device *model.Device) error {
 			"id_user":device.Id_user,
 			"app":device.App,
 		},
-		device,)
+		device)
 }
 
 func GetAllDevices() (devices []model.Device, err error) {

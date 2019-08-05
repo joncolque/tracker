@@ -7,6 +7,7 @@ import (
 	"config"
 	"router"
 	"dbconnection"
+	"deliverer"
 )
 
 func main(){
@@ -30,7 +31,9 @@ func initAPI() {
 	}))
 
 	router.InitDeviceRoutes(app.Group("/device"))
-	router.InitTracingRoutes(app.Group("/tracing"))
+	router.InitTracingRoutes(app.Group("/tracing")) 
+
+	deliverer.InitProcess()
 
 	app.Run(":8080")
 }

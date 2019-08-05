@@ -25,9 +25,7 @@ func CreateDevice(deviceToComplete dto.CompleteDeviceDTO) (err error) {
 		device.App = deviceToComplete.App
 		err = dao.CreateDevice(&device)
 	} else {
-		if(device.Id_device != deviceToComplete.Id_device){
-			err = dao.UpdateDevice(&device)
-		}
+		err = dao.UpdateDevice(&device)
 	}
 	return
 }

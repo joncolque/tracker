@@ -15,7 +15,7 @@ func NewDevice(c *gin.Context) {
 	id_user := c.Param("id_user")
 
 	//TODO: Tomar la "app" del JWT_Auth del Header
-	app:= "app1"
+	app:= "flowtrace"
 
 	err := c.BindJSON(&device)
 	if err != nil {

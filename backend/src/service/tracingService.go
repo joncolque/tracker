@@ -2,46 +2,84 @@ package service
 
 import (
 	"fmt"
-	"log"
-	"golang.org/x/net/context"
-	firebase "firebase.google.com/go"
-	"firebase.google.com/go/messaging"
+	// "log"
+	// "golang.org/x/net/context"
+	// firebase "firebase.google.com/go"
+	// "firebase.google.com/go/messaging"
+	"dao"
+	"dto"
+	"deliverer"
+	"assembler"
 )
 
-func InitTracing(id_tracked string) {
-	fmt.Println("id_tracked", id_tracked)
-	app, err := firebase.NewApp(context.Background(), nil)
-	if err != nil {
-			log.Fatalf("error initializing app: %v\n", err)
+func Tracing(tracingDevices dto.TracingDevicesDTO) (id_users []string, err error) {
+	
+	var devices []dto.CompleteDeviceDTO
+
+	//TODO: obtener "app" del JWT_Auth del header y hacer un JWT_Tracker con el nombre de la app y el id_user
+	app := "flowtrace"
+	JWT_T := "app+id_user" // Este se va a enviar en el payload del mensaje de Firebase. Importar la Lib y generarla
+
+	// Peticion de seguimiento
+	for _, id_user := range tracingDevices.Id_users {
+		device, err := dao.FindDevice(id_user, app)
+		deviceDTO := assembler.ToCompleteDeviceDTO(device)
+		if err == nil {
+			fmt.Println("token:", deviceDTO.Id_device)
+			devices = append(devices, deviceDTO)
+		}
 	}
 
-	ctx := context.Background()
+	var appPayload dto.AppPayloadDTO
+	appPayload.JWT_T = JWT_T
+	appPayload.App = app
 
-	client, err := app.Messaging(ctx)
-	if err != nil {
-			log.Fatalf("error getting Messaging client: %v\n", err)
+	deliverer.SetAppPayload(appPayload)
+	devicesRegistered, err := deliverer.RegisterDevices(devices, app)
+
+	if err == nil {
+		for _, deviceDTO := range devicesRegistered {
+			deviceDTO.On_track = true
+			device := assembler.FromCompleteDeviceDTO(deviceDTO)
+			err := dao.UpdateDevice(&device)
+			if err == nil {
+				id_users = append(id_users, deviceDTO.Id_user)
+			}
+		}
 	}
 
-	// See documentation on defining a message payload.
-	message := &messaging.Message{
-			Data: map[string]string{
-					"score": "1234",
-					"time":  "4567",
-			},
-			Token: id_tracked, // This registration token comes from the client FCM SDKs.
-			Notification: &messaging.Notification{
-				Title: "Hello2",
-				Body:  "World",
-			},
+	return
+}
+
+
+func StopTracing(tracingDevices dto.TracingDevicesDTO) (id_users []string, err error) {
+	
+	var devices []dto.CompleteDeviceDTO
+
+	//TODO obtener "app" del JWT_Auth del header y hacer un JWT_Tracker con el nombre de la app y el id_user
+	app := "flowtrace"
+	// JWT_T := "app+id_user" // Este se va a enviar en el payload del mensaje de Firebase. Importar la Lib y generarla
+
+	for _, id_user := range tracingDevices.Id_users {
+		device, err := dao.FindDevice(id_user, app)
+		deviceDTO := assembler.ToCompleteDeviceDTO(device)
+		if err == nil {
+			devices = append(devices, deviceDTO)
+		}
 	}
 
-	// Send a message to the device corresponding to the provided
-	// registration token.
-	response, err := client.Send(ctx, message)
-	if err != nil {
-			log.Fatalln(err)
-	}
-	// Response is a message ID string.
-	fmt.Println("Successfully sent message:", response)
+	devicesUnRegistered, err := deliverer.UnRegisterDevices(devices, app)
 
+	if err == nil {
+		for _, deviceDTO := range devicesUnRegistered {
+			deviceDTO.On_track = false
+			device := assembler.FromCompleteDeviceDTO(deviceDTO)
+			err := dao.UpdateDevice(&device)
+			if err == nil {
+				id_users = append(id_users, deviceDTO.Id_user)
+			}
+		}
+	}
+
+	return
 }
