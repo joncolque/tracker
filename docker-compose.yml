@@ -26,6 +26,8 @@ services:
       - 21018:27017
     networks:
       - flowtrace-net
+    volumes:
+      - ./mongo:/data/db
 
 networks:
   flowtrace-net:

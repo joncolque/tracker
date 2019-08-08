@@ -56,3 +56,6 @@ TODO:
 # Tokens
 
 TODO: flujo de tokens de firebase, e internos de CyS.
+
+# Links útiles
+https://docs.mongodb.com/manual/reference/geojson/

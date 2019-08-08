@@ -26,12 +26,13 @@ func initAPI() {
 		Methods:        "GET, PUT, POST, DELETE",
 		RequestHeaders: "Origin, Authorization, Content-Type, Access-Control-Allow-Origin, token",
 		ExposedHeaders: "",
-		Credentials: true,		 
+		Credentials: true,
 		ValidateHeaders: false,
 	}))
 
 	router.InitDeviceRoutes(app.Group("/device"))
-	router.InitTracingRoutes(app.Group("/tracing")) 
+	router.InitTracingRoutes(app.Group("/tracing"))
+	router.InitPositionRoutes(app.Group("/position"))
 
 	deliverer.InitProcess()
 

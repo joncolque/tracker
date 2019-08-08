@@ -12,7 +12,7 @@ const (
 
 var cDevice *mgo.Collection
 
-func InitTrackedDAO(database *mgo.Database) {
+func InitDeviceDAO(database *mgo.Database) {
 	cDevice = database.C(DEVICE_COLLECTION)
 }
 
