@@ -1,2 +1,1 @@
 db_name: test
-GOOGLE_APPLICATION_CREDENTIALS: /flowtrace/backend/serviceAccountKey.json

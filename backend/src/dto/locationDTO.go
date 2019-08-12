@@ -10,8 +10,9 @@ type SignatureLocationDTO struct {
 }
 
 type SignatureFilterLocationDTO struct {
-	//TODO: ver como bindear dinamicamente cuanto se agreguen mas query params
 	Id_user		string		`form:"id_user"`
+	App			string		`form:"app"`
+	Timestamp	string		`form:"timestamp"`
 }
 
 type UserLocationDTO struct {
@@ -27,6 +28,7 @@ type LocationDTO struct {
 }
 
 type FilterLocationDTO struct {
-	//TODO: ver como bindear dinamicamente cuanto se agreguen mas query params
-	Id_user		string		`form:"id_user"`
+	Id_user		string
+	App			string
+	Timestamp 	string		
 }

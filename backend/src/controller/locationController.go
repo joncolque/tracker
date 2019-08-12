@@ -5,7 +5,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"service"
-	// "fmt"
 )
 
 func UpdatePosition(c *gin.Context) {
@@ -24,8 +23,8 @@ func UpdatePosition(c *gin.Context) {
 	}
 
 	var userLocation dto.UserLocationDTO
-	userLocation.Id_user = id_user
-	userLocation.App = app
+	userLocation.Id_user = id_user	// Vendria en el JWT
+	userLocation.App = app			// Vendria en el JWT
 	userLocation.Location.Longitude = sLocation.Longitude
 	userLocation.Location.Latitude = sLocation.Latitude
 	userLocation.Location.Timestamp = sLocation.Timestamp
@@ -38,6 +37,8 @@ func UpdatePosition(c *gin.Context) {
 }
 
 func GetAllLocations(c *gin.Context) {
+	// Del JWT saco que usuario es y su aplicación. c->Header->Authorization
+	app := "flowtrace"
 
 	var sFilterLocation dto.SignatureFilterLocationDTO
 	err := c.Bind(&sFilterLocation)
@@ -49,10 +50,12 @@ func GetAllLocations(c *gin.Context) {
 		return
 	}
 
-	var filterLocation dto.FilterLocationDTO
-	filterLocation.Id_user = sFilterLocation.Id_user
-
-	locations, err := service.GetAllLocations(filterLocation)
+	var LocationFilter dto.FilterLocationDTO
+	LocationFilter.Id_user = sFilterLocation.Id_user
+	LocationFilter.App = app									// Vendria en el JWT
+	LocationFilter.Timestamp = sFilterLocation.Timestamp
+	
+	locations, err := service.GetAllLocations(LocationFilter)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{

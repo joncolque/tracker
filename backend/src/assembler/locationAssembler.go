@@ -5,8 +5,6 @@ import (
 	"model"
 )
 
-
-
 type UserLocation struct {
 	Id_user		string	`json:"id_user" bson:"id_user"`
 	App			string	`json:"app" bson:"app"`
@@ -19,7 +17,6 @@ type Location struct {
 	Latitude	string	`json:"latitude" bson:"latitude"`
 }
 
-
 func FromUserLocationDTO(uLocationDTO dto.UserLocationDTO) (uLocation model.UserLocation) {
 	uLocation.Id_user = uLocationDTO.Id_user
 	uLocation.App = uLocationDTO.App
@@ -31,6 +28,8 @@ func FromUserLocationDTO(uLocationDTO dto.UserLocationDTO) (uLocation model.User
 
 func FromFilterLocationDTO(filterLocationDTO dto.FilterLocationDTO) (filterLocation model.FilterLocation) {
 	filterLocation.Id_user = filterLocationDTO.Id_user
+	filterLocation.App = filterLocationDTO.App
+	filterLocation.Timestamp = filterLocationDTO.Timestamp
 	return
 }
 

@@ -32,7 +32,7 @@ func initAPI() {
 
 	router.InitDeviceRoutes(app.Group("/device"))
 	router.InitTracingRoutes(app.Group("/tracing"))
-	router.InitPositionRoutes(app.Group("/position"))
+	router.InitLocationRoutes(app.Group("/location"))
 
 	deliverer.InitProcess()
 

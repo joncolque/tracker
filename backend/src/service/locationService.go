@@ -5,6 +5,7 @@ import (
 	"dto"
 	"assembler"
 	"model"
+	"fmt"
 )
 
 func InsertLocation(location dto.UserLocationDTO) (err error) {
@@ -19,7 +20,9 @@ func GetAllLocations(filterLocation dto.FilterLocationDTO) (usersLocationsDTO []
 	var mUserLocations []model.UserLocation
 	
 	mFilterLocation = assembler.FromFilterLocationDTO(filterLocation)
+	fmt.Println("Service mFilterLocation", mFilterLocation)
 	mUserLocations, err = dao.GetAllLocations(mFilterLocation)
+	fmt.Println("Service mUserLocations", mUserLocations)
 	usersLocationsDTO = assembler.ToUsersLocationsDTO(mUserLocations)
 	return
 }

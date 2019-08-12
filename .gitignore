@@ -30,6 +30,7 @@ backend/src/firebase.google.com
 backend/src/go.etcd.io
 backend/src/go.opencensus.io
 backend/src/google.golang.org
+backend/src/go.mongodb.org
 
 #BBDD
 mongo
