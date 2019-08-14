@@ -16,7 +16,7 @@ https://firebase.google.com/docs/cloud-messaging/server?hl=es-419#firebase-admin
 
 https://godoc.org/firebase.google.com/go/messaging
 
-## Como agregar Firebase Cloud Messaging a proyecto Android
+# Como agregar Firebase Cloud Messaging a proyecto Android
 
 Ir la consola de Firebase https://console.firebase.google.com/u/0/, settings->general->añadir_aplicación y seguir los pasos.
 Nota: Se recomienda generar la clave SHA-1 que te ofrece Firebase como opcional.
@@ -47,23 +47,38 @@ go run main.go  #Luego solo con este comando levanta.
 
 Servirá en http://localhost:8080
 
-TODO:
-
 - Registrar dispositivo
-- Iniciar seguimiento
-- Guardar posición
+
+GET     http://localhost:8080/device            muestra todos los dispositivos registrados
+
+PUT     http://localhost:8080/device/:id_user   upsert de id_device (token mobile que se generó en el cliente de firebase)
+
+- Seguimiento
+
+POST    http://localhost:8080/tracing           Inicia o termina el seguimiento sobre los dispositivos especificados
+
+- Ubicaciones
+
+POST    http://localhost:8080/location          Inserta la ubicación del dispositivo      
+
+GET     http://localhost:8080/location          Se obtiene todas las ubicaciones guardadas
+
+Para mas detalle ver la colección de Postman    flowtraceGo.postman_collection.json
 
 # Tokens
 
 TODO: flujo de tokens de firebase, e internos de CyS.
 
-# Configuracion del tiempo de dispatch
+# Configuracion del tiempo de dispatch para obtener las ubicaciones
+
 El tiempo se configura en /backend/src/config/config.dev.yml para dev.
 El tiempo se configura en /backend/src/config/config.prod.yml para prod.
 
 Con el siguiente formato:
 
 Unidades "ns", "us" (or "µs"), "ms", "s", "m", "h".
+Ejemplo
+
 ```yml
 dispatch_time: 30s
 ```
