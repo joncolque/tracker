@@ -8,19 +8,29 @@ import (
 	firebase "firebase.google.com/go"
 	"firebase.google.com/go/messaging"
 	"time"
+	"github.com/spf13/viper"
 )
 
 var (
-	ctx 		context.Context
-	client 		*messaging.Client
-	messages 	[]*messaging.Message
+	ctx 			context.Context
+	client 			*messaging.Client
+	messages 		[]*messaging.Message
+	dispatch_time	time.Duration
 )
 
 func InitProcess(){
 	fmt.Println("Deliverer InitProcess")
-	err := ConnectService()
+	var err error
+	dispatch_time, err = time.ParseDuration(viper.GetString("dispatch_time"))
+	if err != nil {
+		log.Println("The format of dispatch time is incorrect")
+		panic(err)
+		return
+	}
+	err = ConnectService()
 	if err != nil {
 		fmt.Println("there was a problem connecting to the firebase service")
+		return
 	} else {
 		fmt.Println("Connection with Firebase was succesfully")
 		go Sender()
@@ -29,7 +39,7 @@ func InitProcess(){
 
 func Sender(){
 	for {
-		time.Sleep(30 * time.Second)
+		time.Sleep(dispatch_time)
 		for _, message := range messages {
 			response, err := client.Send(ctx, message)
 			fmt.Println("Sended", response)

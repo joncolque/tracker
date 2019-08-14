@@ -57,5 +57,16 @@ TODO:
 
 TODO: flujo de tokens de firebase, e internos de CyS.
 
+# Configuracion del tiempo de dispatch
+El tiempo se configura en /backend/src/config/config.dev.yml para dev.
+El tiempo se configura en /backend/src/config/config.prod.yml para prod.
+
+Con el siguiente formato:
+
+Unidades "ns", "us" (or "µs"), "ms", "s", "m", "h".
+```yml
+dispatch_time: 30s
+```
+
 # Links útiles
 https://docs.mongodb.com/manual/reference/geojson/
