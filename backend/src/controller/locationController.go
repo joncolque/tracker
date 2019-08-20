@@ -7,8 +7,9 @@ import (
 	"service"
 )
 
-func UpdatePosition(c *gin.Context) {
-	// Del JWT saco que usuario es y su aplicación. c->Header->Authorization
+func UpdateLocation(c *gin.Context) {
+	// Valido que el JWT_T haya sigo generado por FlowtraceGo
+	// Del JWT_T saco que usuario es y su aplicación. c->Header->Authorization
 	id_user := "user_1"
 	app := "flowtrace"
 

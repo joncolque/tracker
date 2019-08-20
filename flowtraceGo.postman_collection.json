@@ -15,14 +15,14 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/device",
+					"raw": "http://localhost:8080/devices",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"device"
+						"devices"
 					]
 				}
 			},
@@ -45,14 +45,14 @@
 					"raw": "{\n\t\"id_device\":\"cVisJYjTbBA:APA91bFzpW-M4hrsuwtChFlUyJ3qJtBNawNw20yx5kmcMIluN-67FWCcBan76O_cjhKczSOBpMxSHSaK55dqBRM2wsViGWrZpPhkeJlwNJYMqpz_Z41Fk05UzzTw5CA9_nDejzaE6zg6\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/device/jon",
+					"raw": "http://localhost:8080/devices/jon",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"device",
+						"devices",
 						"jon"
 					]
 				}

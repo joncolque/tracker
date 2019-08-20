@@ -9,15 +9,14 @@ import (
 
 func NewDevice(c *gin.Context) {
 
-	var device dto.DeviceDTO
-	var completeDevice dto.CompleteDeviceDTO
-
+	var sDevice dto.SignatureDeviceDTO
 	id_user := c.Param("id_user")
 
-	//TODO: Tomar la "app" del JWT_Auth del Header
+	//TODO: Tomar la "app" del JWT_Auth c->Header->Authorization
+
 	app:= "flowtrace"
 
-	err := c.BindJSON(&device)
+	err := c.BindJSON(&sDevice)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "Bad request",
@@ -25,11 +24,12 @@ func NewDevice(c *gin.Context) {
 		return
 	}
 
-	completeDevice.Id_device = device.Id_device
-	completeDevice.Id_user = id_user
-	completeDevice.App = app
+	var uDevice dto.UpsertDeviceDTO
+	uDevice.Id_device = sDevice.Id_device
+	uDevice.Id_user = id_user
+	uDevice.App = app
 
-	err = service.CreateDevice(completeDevice)
+	err = service.CreateDevice(uDevice)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{

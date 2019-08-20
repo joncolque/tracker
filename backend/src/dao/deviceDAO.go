@@ -16,13 +16,8 @@ func InitDeviceDAO(database *mgo.Database) {
 	cDevice = database.C(DEVICE_COLLECTION)
 }
 
-func FindDevice(id_user string, app string) (device model.Device, err error) {
-	err = cDevice.Find(
-			bson.M{
-				"id_user": id_user, 
-				"app": app,
-			},
-		).One(&device)
+func FindDevice(deviceFinder model.DeviceFinder) (device model.Device, err error) {
+	err = cDevice.Find(deviceFinder).One(&device)
 	return
 }
 
@@ -30,13 +25,8 @@ func CreateDevice(device *model.Device) error {
 	return cDevice.Insert(device)
 }
 
-func UpdateDevice(device *model.Device) error {
-	return cDevice.Update(
-		bson.M{
-			"id_user":device.Id_user,
-			"app":device.App,
-		},
-		device)
+func UpdateDevice(deviceFinder model.DeviceFinder, device *model.Device) error {
+	return cDevice.Update(deviceFinder,device)
 }
 
 func GetAllDevices() (devices []model.Device, err error) {

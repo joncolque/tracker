@@ -3,6 +3,11 @@ package model
 import (
 )
 
+type DeviceFinder struct {
+	Id_user			string	`json:"id_user" bson:"id_user"`
+	App				string	`json:"app" bson:"app"`
+}
+
 type Device struct {
 	Id_device		string	`json:"id_device" bson:"id_device"`
 	Id_user			string	`json:"id_user" bson:"id_user"`

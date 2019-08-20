@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func InitLocationRoutes(positionGroup *gin.RouterGroup) {
-	positionGroup.GET("/", middleware.IsAuth, controller.GetAllLocations)
-	positionGroup.POST("/", middleware.IsAuth, controller.UpdatePosition)
+func InitLocationRoutes(locationGroup *gin.RouterGroup) {
+	locationGroup.GET("/", middleware.IsAuth, controller.GetAllLocations)
+	locationGroup.POST("/", middleware.IsAuth, controller.UpdateLocation)
 }

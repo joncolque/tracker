@@ -30,9 +30,9 @@ func initAPI() {
 		ValidateHeaders: false,
 	}))
 
-	router.InitDeviceRoutes(app.Group("/device"))
+	router.InitDeviceRoutes(app.Group("/devices"))
 	router.InitTracingRoutes(app.Group("/tracing"))
-	router.InitLocationRoutes(app.Group("/location"))
+	router.InitLocationRoutes(app.Group("/locations"))
 
 	deliverer.InitProcess()
 

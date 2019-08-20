@@ -65,7 +65,7 @@ func ConnectService() (err error){
 	return
 }
 
-func RegisterDevice(device dto.CompleteDeviceDTO, JWT_T string) (err error){
+func RegisterDevice(device dto.DeviceDTO, JWT_T string) (err error){
 	message := &messaging.Message{
 		Data: map[string]string{
 				"JWT_T": JWT_T,
@@ -87,7 +87,7 @@ func RegisterDevice(device dto.CompleteDeviceDTO, JWT_T string) (err error){
 	return
 }
 
-func UnregisterDevice(device dto.CompleteDeviceDTO) {
+func UnregisterDevice(device dto.DeviceDTO) {
 	//TODO: Ver la mejor forma eliminar un elemento de una lista. Ver Channels con buffering de Golang
 	var indexToDelete int
 	for i := 0; i < len(messages); i++ {

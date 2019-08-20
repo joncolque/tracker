@@ -5,25 +5,32 @@ import (
 	"model"
 )
 
-func ToCompleteDeviceDTO(device model.Device) (completeDeviceDTO dto.CompleteDeviceDTO) {
-	completeDeviceDTO.Id_device = device.Id_device
-	completeDeviceDTO.Id_user = device.Id_user
-	completeDeviceDTO.App = device.App
-	completeDeviceDTO.On_track = device.On_track
+func ToDeviceDTO(device model.Device) (deviceDTO dto.DeviceDTO) {
+	deviceDTO.Id_device = device.Id_device
+	deviceDTO.Id_user = device.Id_user
+	deviceDTO.App = device.App
+	deviceDTO.On_track = device.On_track
 	return
 }
 
-func FromCompleteDeviceDTO(completeDeviceDTO dto.CompleteDeviceDTO) (device model.Device) {
-	device.Id_device = completeDeviceDTO.Id_device
-	device.Id_user = completeDeviceDTO.Id_user
-	device.App = completeDeviceDTO.App 
-	device.On_track = completeDeviceDTO.On_track
+func FromDeviceDTO(deviceDTO dto.DeviceDTO) (device model.Device) {
+	device.Id_device = deviceDTO.Id_device
+	device.Id_user = deviceDTO.Id_user
+	device.App = deviceDTO.App
+	device.On_track = deviceDTO.On_track
 	return
 }
 
-func ToCompleteDevicesDTO(devices []model.Device) (devicesDTO []dto.CompleteDeviceDTO) {
+func ToDevicesDTO(devices []model.Device) (devicesDTO []dto.DeviceDTO) {
 	for _, device := range devices {
-		devicesDTO = append(devicesDTO, ToCompleteDeviceDTO(device))
+		devicesDTO = append(devicesDTO, ToDeviceDTO(device))
 	}
+	return
+}
+
+
+func FromUpsertDeviceDTO(device dto.UpsertDeviceDTO) (mDeviceFinder model.DeviceFinder){
+	mDeviceFinder.Id_user = device.Id_user
+	mDeviceFinder.App = device.App
 	return
 }

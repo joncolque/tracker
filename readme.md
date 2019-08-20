@@ -49,9 +49,9 @@ Servirá en http://localhost:8080
 
 - Registrar dispositivo
 
-GET     http://localhost:8080/device            muestra todos los dispositivos registrados
+GET     http://localhost:8080/devices            muestra todos los dispositivos registrados
 
-PUT     http://localhost:8080/device/:id_user   upsert de id_device (token mobile que se generó en el cliente de firebase)
+PUT     http://localhost:8080/devices/:id_user   upsert de id_device (token mobile que se generó en el cliente de firebase)
 
 - Seguimiento
 
@@ -59,9 +59,9 @@ POST    http://localhost:8080/tracing           Inicia o termina el seguimiento 
 
 - Ubicaciones
 
-POST    http://localhost:8080/location          Inserta la ubicación del dispositivo      
+POST    http://localhost:8080/locations          Inserta la ubicación del dispositivo      
 
-GET     http://localhost:8080/location          Se obtiene todas las ubicaciones guardadas
+GET     http://localhost:8080/locations          Se obtiene todas las ubicaciones guardadas
 
 Para mas detalle ver la colección de Postman    flowtraceGo.postman_collection.json
 
